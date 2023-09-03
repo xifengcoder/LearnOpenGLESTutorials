@@ -1,5 +1,7 @@
 package com.learnopengles.android.lesson3;
 
+import android.content.Context;
+
 import com.learnopengles.android.lesson2.LessonTwoRenderer;
 
 /**
@@ -8,6 +10,15 @@ import com.learnopengles.android.lesson2.LessonTwoRenderer;
  */
 public class LessonThreeRenderer extends LessonTwoRenderer
 {
+	/**
+	 * Initialize the model data.
+	 *
+	 * @param context
+	 */
+	public LessonThreeRenderer(Context context) {
+		super(context);
+	}
+
 	protected String getVertexShader()
 	{
 		// Define our per-pixel lighting shader.

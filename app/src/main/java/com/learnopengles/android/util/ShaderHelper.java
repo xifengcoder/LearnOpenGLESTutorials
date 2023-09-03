@@ -1,7 +1,12 @@
 package com.learnopengles.android.util;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.opengl.GLES20;
 import android.util.Log;
+
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 
 public class ShaderHelper {
     private static final String TAG = "ShaderHelper";
@@ -88,5 +93,44 @@ public class ShaderHelper {
         }
 
         return programHandle;
+    }
+
+    //从sh脚本中加载shader内容的方法
+    public static String loadFromAssetsFile(String fname, Resources r) {
+        String result = null;
+        try {
+            InputStream in = r.getAssets().open(fname);
+            int ch = 0;
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            while ((ch = in.read()) != -1) {
+                baos.write(ch);
+            }
+            baos.close();
+            in.close();
+            result = baos.toString("UTF-8");
+            result = result.replaceAll("\\r\\n", "\n");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public static String loadFromAssetsFile(Context context,  int rawId) {
+        String result = null;
+        try {
+            InputStream in = context.getResources().openRawResource(rawId);
+            int ch = 0;
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            while ((ch = in.read()) != -1) {
+                baos.write(ch);
+            }
+            baos.close();
+            in.close();
+            result = baos.toString("UTF-8");
+            result = result.replaceAll("\\r\\n", "\n");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }
